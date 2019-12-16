@@ -283,12 +283,6 @@ class TodoController extends ApiController
      *                 description="Description of the todo",
      *                 type="string",
      *                 example="",
-     *             ),
-     *             @OA\Property(
-     *                 property="is_done",
-     *                 description="",
-     *                 type="bolean",
-     *                 example=false,
      *             )
      *         )
      *     ),

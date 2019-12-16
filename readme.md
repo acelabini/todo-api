@@ -8,6 +8,8 @@ A simple Todo API CRUD
     - `cp .env.example .env`
 - Install dependencies 
     - `composer install`
+- Generate JWT secret
+    - `php artisan jwt:secret`    
 - Generate swagger 
     - `php artisan swagger-lume:publish-views`
     - `php artisan swagger-lume:generate`
