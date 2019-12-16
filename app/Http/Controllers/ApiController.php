@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Responses\ApiResponse;
+use App\Utils\Enumerators\Responses\ResponseStatusCodeEnumerator;
 use Exception;
 use Illuminate\Http\Response;
 use InvalidArgumentException;
@@ -26,13 +27,15 @@ class ApiController extends Controller
             return response()->json($this->response->getData());
         } catch (ApiException $e) {
             throw $e;
-        } catch(ValidationException | InvalidArgumentException $e) {
+        } catch(ValidationException $e) {
             throw new ApiException(
                 $e->getMessage(),
                 $e->getResponse() ? $e->getResponse()->getStatusCode() : Response::HTTP_UNPROCESSABLE_ENTITY,
                 $e->errors()
             );
-        } catch(ModelNotFoundException $e) {
+        } catch(InvalidArgumentException $e) {
+            throw new ApiException($e->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }  catch(ModelNotFoundException $e) {
             throw new ApiException('Record not found.', Response::HTTP_NOT_FOUND);
         } catch (Exception $e) {
             throw new ApiException($e->getMessage(), $e->getCode());

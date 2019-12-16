@@ -15,7 +15,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('register', 'AuthController@register');
     $router->post('login', 'AuthController@login');
     $router->group(['middleware' => ['auth.jwt']], function () use ($router) {
-        $router->get('todo', 'TodoController@show');
+        $router->get('todo', 'TodoController@index');
+        $router->get('todo/{todo_id}', 'TodoController@show');
         $router->post('todo', 'TodoController@store');
+        $router->patch('todo/{todo_id}', 'TodoController@update');
+        $router->delete('todo/{todo_id}', 'TodoController@destroy');
+        $router->patch('todo/{todo_id}/status', 'TodoController@updateStatus');
     });
 });
